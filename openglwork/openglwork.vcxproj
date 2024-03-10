@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\opengl\sdk\include;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\opengl\sdk\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\opengl\sdk\include;C:\openglwrok\sdk\include;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\opengl\sdk\include;C:\openglwrok\sdk\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -145,6 +145,10 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="opengltest.cpp" />
+    <ClCompile Include="Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

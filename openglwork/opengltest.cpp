@@ -1,6 +1,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <stdio.h>  
+#include <windows.h>
+
+#include "Shader.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -9,7 +16,7 @@ void processInput(GLFWwindow* window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-
+#if 0
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "void main()\n"
@@ -22,6 +29,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "{\n"
 "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 "}\n\0";
+#endif
 
 
 int main()
@@ -30,6 +38,10 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+
+    int width, height, nrChannels;
+    unsigned char* data = stbi_load("./container.jpg", &width, &height, &nrChannels, 0);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -56,7 +68,7 @@ int main()
         return -1;
     }
 
-
+#if 0
     // build and compile our shader program
     // 建立和编译我们的shader程序
     // ------------------------------------
@@ -102,6 +114,9 @@ int main()
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
+#endif
+    Shader ourShader("./shader.vs", "./shader.fs");
+
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -111,15 +126,26 @@ int main()
          0.0f,  0.5f, 0.0f  // top   
     };
 
-    unsigned int VBO, VAO;
-    glGenVertexArrays(1, &VAO);
+    //VBO 0: 使用glGenBuffers函数和一个缓冲ID生成一个VBO对象：
+    unsigned int VBO;
     glGenBuffers(1, &VBO);
+    
+    //VAO 0: 创建一个VAO和创建一个VBO很类似：
+    unsigned int  VAO;
+    glGenVertexArrays(1, &VAO);  
+
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+    //VAO 1:绑定VAO
     glBindVertexArray(VAO);
 
+    
+    //VBO 1:使用glBindBuffer函数把新创建的缓冲绑定到GL_ARRAY_BUFFER目标上.   // 0. 复制顶点数组到缓冲中供OpenGL使用    
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    //VBO 2:我们可以调用glBufferData函数，它会把之前定义的顶点数据复制到缓冲的内存中：     
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    ////VBO 3:设置顶点属性指针  使用glVertexAttribPointer函数告诉OpenGL该如何解析顶点数据（应用到逐个顶点属性上）了.   // 1. 设置顶点属性指针
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
@@ -138,7 +164,7 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
         // input
-        // -----
+        // 
         processInput(window);
 
         // render
@@ -146,10 +172,12 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-
+        ourShader.use();  //2. 当我们渲染一个物体时要使用着色器程序
         // draw our first triangle
-        glUseProgram(shaderProgram);
+       // glUseProgram(shaderProgram);
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+
+        // 3. 绘制三角型物体
         glDrawArrays(GL_TRIANGLES, 0, 3);
         // glBindVertexArray(0); // no need to unbind it every time 
 
@@ -165,7 +193,7 @@ int main()
 // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteProgram(shaderProgram);
+ //   glDeleteProgram(shaderProgram);
 
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
