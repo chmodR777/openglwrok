@@ -61,7 +61,7 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // glad: load all OpenGL function pointers
-    // glad: ¼ÓÔØËùÓĞµÄOpenglº¯ÊıÖ¸Õë¡£
+    // glad: åŠ è½½æ‰€æœ‰çš„Openglå‡½æ•°æŒ‡é’ˆã€‚
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         //    std::cout << "Failed to initialize GLAD" << std::endl;
@@ -70,13 +70,13 @@ int main()
 
 #if 0
     // build and compile our shader program
-    // ½¨Á¢ºÍ±àÒëÎÒÃÇµÄshader³ÌĞò
+    // å»ºç«‹å’Œç¼–è¯‘æˆ‘ä»¬çš„shaderç¨‹åº
     // ------------------------------------
     // vertex shader
-    // ¶¥µã×ÅÉ«Æ÷shader
+    // é¡¶ç‚¹ç€è‰²å™¨shader
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader); // ±àÒë
+    glCompileShader(vertexShader); // ç¼–è¯‘
     // check for shader compile errors
     int success;
     char infoLog[512];
@@ -87,10 +87,10 @@ int main()
         std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
     // fragment shader
-    // Æ¬¶Î×ÅÉ«Æ÷
+    // ç‰‡æ®µç€è‰²å™¨
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader); //±àÒë
+    glCompileShader(fragmentShader); //ç¼–è¯‘
     // check for shader compile errors
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success)
@@ -100,7 +100,7 @@ int main()
     }
 
     // link shaders
-    // Á´½Ó
+    // é“¾æ¥
     unsigned int shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
@@ -126,26 +126,26 @@ int main()
          0.0f,  0.5f, 0.0f  // top   
     };
 
-    //VBO 0: Ê¹ÓÃglGenBuffersº¯ÊıºÍÒ»¸ö»º³åIDÉú³ÉÒ»¸öVBO¶ÔÏó£º
+    //VBO 0: ä½¿ç”¨glGenBufferså‡½æ•°å’Œä¸€ä¸ªç¼“å†²IDç”Ÿæˆä¸€ä¸ªVBOå¯¹è±¡ï¼š
     unsigned int VBO;
     glGenBuffers(1, &VBO);
     
-    //VAO 0: ´´½¨Ò»¸öVAOºÍ´´½¨Ò»¸öVBOºÜÀàËÆ£º
+    //VAO 0: åˆ›å»ºä¸€ä¸ªVAOå’Œåˆ›å»ºä¸€ä¸ªVBOå¾ˆç±»ä¼¼ï¼š
     unsigned int  VAO;
     glGenVertexArrays(1, &VAO);  
 
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-    //VAO 1:°ó¶¨VAO
+    //VAO 1:ç»‘å®šVAO
     glBindVertexArray(VAO);
 
     
-    //VBO 1:Ê¹ÓÃglBindBufferº¯Êı°ÑĞÂ´´½¨µÄ»º³å°ó¶¨µ½GL_ARRAY_BUFFERÄ¿±êÉÏ.   // 0. ¸´ÖÆ¶¥µãÊı×éµ½»º³åÖĞ¹©OpenGLÊ¹ÓÃ    
+    //VBO 1:ä½¿ç”¨glBindBufferå‡½æ•°æŠŠæ–°åˆ›å»ºçš„ç¼“å†²ç»‘å®šåˆ°GL_ARRAY_BUFFERç›®æ ‡ä¸Š.   // 0. å¤åˆ¶é¡¶ç‚¹æ•°ç»„åˆ°ç¼“å†²ä¸­ä¾›OpenGLä½¿ç”¨    
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    //VBO 2:ÎÒÃÇ¿ÉÒÔµ÷ÓÃglBufferDataº¯Êı£¬Ëü»á°ÑÖ®Ç°¶¨ÒåµÄ¶¥µãÊı¾İ¸´ÖÆµ½»º³åµÄÄÚ´æÖĞ£º     
+    //VBO 2:æˆ‘ä»¬å¯ä»¥è°ƒç”¨glBufferDataå‡½æ•°ï¼Œå®ƒä¼šæŠŠä¹‹å‰å®šä¹‰çš„é¡¶ç‚¹æ•°æ®å¤åˆ¶åˆ°ç¼“å†²çš„å†…å­˜ä¸­ï¼š     
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    ////VBO 3:ÉèÖÃ¶¥µãÊôĞÔÖ¸Õë  Ê¹ÓÃglVertexAttribPointerº¯Êı¸æËßOpenGL¸ÃÈçºÎ½âÎö¶¥µãÊı¾İ£¨Ó¦ÓÃµ½Öğ¸ö¶¥µãÊôĞÔÉÏ£©ÁË.   // 1. ÉèÖÃ¶¥µãÊôĞÔÖ¸Õë
+    ////VBO 3:è®¾ç½®é¡¶ç‚¹å±æ€§æŒ‡é’ˆ  ä½¿ç”¨glVertexAttribPointerå‡½æ•°å‘Šè¯‰OpenGLè¯¥å¦‚ä½•è§£æé¡¶ç‚¹æ•°æ®ï¼ˆåº”ç”¨åˆ°é€ä¸ªé¡¶ç‚¹å±æ€§ä¸Šï¼‰äº†.   // 1. è®¾ç½®é¡¶ç‚¹å±æ€§æŒ‡é’ˆ
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
@@ -172,12 +172,12 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        ourShader.use();  //2. µ±ÎÒÃÇäÖÈ¾Ò»¸öÎïÌåÊ±ÒªÊ¹ÓÃ×ÅÉ«Æ÷³ÌĞò
+        ourShader.use();  //2. å½“æˆ‘ä»¬æ¸²æŸ“ä¸€ä¸ªç‰©ä½“æ—¶è¦ä½¿ç”¨ç€è‰²å™¨ç¨‹åº
         // draw our first triangle
        // glUseProgram(shaderProgram);
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
 
-        // 3. »æÖÆÈı½ÇĞÍÎïÌå
+        // 3. ç»˜åˆ¶ä¸‰è§’å‹ç‰©ä½“
         glDrawArrays(GL_TRIANGLES, 0, 3);
         // glBindVertexArray(0); // no need to unbind it every time 
 
