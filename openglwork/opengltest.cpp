@@ -5,9 +5,12 @@
 #include <windows.h>
 
 #include "Shader.h"
+#include "TextureTest.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -15,21 +18,6 @@ void processInput(GLFWwindow* window);
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
-
-#if 0
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-"}\n\0";
-#endif
 
 
 int main()
@@ -39,9 +27,6 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-
-    int width, height, nrChannels;
-    unsigned char* data = stbi_load("./container.jpg", &width, &height, &nrChannels, 0);
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -118,6 +103,13 @@ int main()
     Shader ourShader("./shader.vs", "./shader.fs");
 
 
+
+#if 0
+      
+    // 测试纹理
+    TextureTest texturetest;
+
+#else
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
@@ -125,6 +117,7 @@ int main()
          0.5f, -0.5f, 0.0f, // right 
          0.0f,  0.5f, 0.0f  // top   
     };
+
 
     //VBO 0: 使用glGenBuffers函数和一个缓冲ID生成一个VBO对象：
     unsigned int VBO;
@@ -156,6 +149,7 @@ int main()
     // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
 
+#endif
 
     // render loop
    // -----------
@@ -167,6 +161,11 @@ int main()
         // 
         processInput(window);
 
+#if 0
+        //测试纹理
+        texturetest.draw();
+
+#else
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -180,8 +179,7 @@ int main()
         // 3. 绘制三角型物体
         glDrawArrays(GL_TRIANGLES, 0, 3);
         // glBindVertexArray(0); // no need to unbind it every time 
-
-
+#endif
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -191,9 +189,9 @@ int main()
 
     // optional: de-allocate all resources once they've outlived their purpose:
 // ------------------------------------------------------------------------
+
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
- //   glDeleteProgram(shaderProgram);
 
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
@@ -220,4 +218,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // height will be significantly larger than specified on retina displays.
     
     glViewport(0, 0, width, height);
+}
+
+
+void testTextures(GLFWwindow* window, int width, int height)
+{
+
 }

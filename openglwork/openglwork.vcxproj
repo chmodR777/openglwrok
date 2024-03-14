@@ -146,9 +146,17 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="opengltest.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="TextureTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="TextureTest.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader.fs" />
+    <None Include="shader.vs" />
+    <None Include="textureshader.fs" />
+    <None Include="textureshader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

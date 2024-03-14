@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{ce7bc718-d615-4ea4-894c-c1a1a17a2236}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="opengltest.cpp">
@@ -24,10 +27,30 @@
     <ClCompile Include="Shader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TextureTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TextureTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="textureshader.fs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="shader.fs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="shader.vs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="textureshader.vs">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
