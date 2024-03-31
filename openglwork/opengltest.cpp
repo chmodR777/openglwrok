@@ -4,6 +4,12 @@
 #include <stdio.h>  
 #include <windows.h>
 
+// glm
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+
 #include "Shader.h"
 #include "TextureTest.h"
 
@@ -100,11 +106,12 @@ int main()
     glDeleteShader(fragmentShader);
 
 #endif
-    Shader ourShader("./shader.vs", "./shader.fs");
+ //   Shader ourShader("./shader.vs", "./shader.fs");
+
+    Shader ourShader("./5.1.transform.vs", "./5.1.transform.fs");
 
 
-
-#if 0
+#if 1
       
     // 测试纹理
     TextureTest texturetest;
@@ -161,9 +168,20 @@ int main()
         // 
         processInput(window);
 
-#if 0
+#if 1
         //测试纹理
+        // create transformations
+        //glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+        //transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+        //transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+        //
+        // get matrix's uniform location and set matrix
+     //   ourShader.use();
+        //unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+        //glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+        
         texturetest.draw();
+        
 
 #else
         // render
@@ -190,8 +208,8 @@ int main()
     // optional: de-allocate all resources once they've outlived their purpose:
 // ------------------------------------------------------------------------
 
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+//    glDeleteVertexArrays(1, &VAO);
+ //   glDeleteBuffers(1, &VBO);
 
 
     // glfw: terminate, clearing all previously allocated GLFW resources.

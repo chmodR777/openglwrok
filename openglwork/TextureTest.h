@@ -14,7 +14,9 @@ public:
 	void draw();
 
 private:
-
+	
+	unsigned int m_texture1;
+	unsigned int m_texture2;
 	Shader m_texturShader;
 	unsigned int m_VAO;
 
