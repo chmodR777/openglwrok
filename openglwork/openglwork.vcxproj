@@ -153,6 +153,8 @@
     <ClInclude Include="TextureTest.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="5.1.transform.fs" />
+    <None Include="5.1.transform.vs" />
     <None Include="shader.fs" />
     <None Include="shader.vs" />
     <None Include="textureshader.fs" />
